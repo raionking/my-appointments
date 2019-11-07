@@ -1,5 +1,7 @@
 @extends('layouts.panel')
 
+@section('title','Home')
+
 @section('content')
 <div class="row">
     <div class="col-md-12 mb-4">

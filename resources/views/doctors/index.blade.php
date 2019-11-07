@@ -1,5 +1,7 @@
 @extends('layouts.panel')
 
+@section('title','Doctors')
+
 @section('content')
 <div class="card shadow">
     <div class="card-header border-0">

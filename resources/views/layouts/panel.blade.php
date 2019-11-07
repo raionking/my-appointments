@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>MY MEDICAL | {{ config('app.name')}} </title>
+  <title> {{ config('app.name') }} | @yield('title') </title>
   <!-- Favicon -->
   <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
   <!-- Fonts -->
