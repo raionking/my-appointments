@@ -6,29 +6,50 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\WorkDay;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
-    public function edit()
-    {
-    	$days = [
+    private $days = [
     		'Lunes','Martes','Miércoles',
     		'Jueves','Viernes','Sábado','Domingo'
     	];
-    	return view('schedule',compact('days'));
+
+    public function edit()
+    {
+    	$workDays = WorkDay::where('user_id', auth()->id())->get();    	
+    	$workDays->map(function($workDay){
+    		$workDay->morning_start = (new Carbon($workDay->morning_start))->format('g:i A');
+    		$workDay->morning_end = (new Carbon($workDay->morning_end))->format('g:i A');
+    		$workDay->afternoon_start = (new Carbon($workDay->afternoon_start))->format('g:i A');
+    		$workDay->afternoon_end = (new Carbon($workDay->afternoon_end))->format('g:i A');
+    		return $workDay;
+    	});
+    	//dd($workDays->toArray());
+    	$days = $this->days;
+    	return view('schedule',compact('days','workDays'));
     }
 
     public function store(Request $request)
     {
     	//dd($request->all());
-
     	$active = $request->input('active') ?: [];
     	$morning_start = $request->input('morning_start');
     	$morning_end = $request->input('morning_end');
     	$afternoon_start = $request->input('afternoon_start');
     	$afternoon_end = $request->input('afternoon_end');
 
-    	for ($i = 0; $i < 7; ++$i)
+    	$errors = [];
+
+    	for ($i = 0; $i < 7; ++$i) {
+    		if($morning_start[$i] > $morning_end[$i]) {
+    			$errors [] = "Las horas del turno mañana son inconsistentes para el día " .$days = $this->days[$i] . ".";
+    		}
+
+			if($afternoon_start[$i] > $afternoon_end[$i]) {
+    			$errors [] = "Las horas del turno tarde son inconsistentes para el día " .$days = $this->days[$i] . ".";
+    		}    		
+
     		WorkDay::updateOrCreate(
 	    		[
 	    			'day' => $i ,
@@ -42,7 +63,12 @@ class ScheduleController extends Controller
 			        'afternoon_end' => $afternoon_end[$i]			        
 		    	]		    
 			);
+    	}    	
 
-		return back();
+    	if(count($errors) > 0)	
+    		return back()->with(compact('errors'));
+
+    	$notification = "Los cambios se han guardado correctamente";
+		return back()->with(compact('notification'));    	
     }
 }
