@@ -10,7 +10,7 @@ const noHoursAlert = `
 $(function (){
     $specialty = $('#specialty');
     $doctor = $('#doctor');
-    $date = $('#date');
+    $date = $('#scheduled_date');
     $hours = $('#hours');
 
     $specialty.change(()=> {

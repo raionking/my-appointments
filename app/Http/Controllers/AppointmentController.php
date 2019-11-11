@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Specialty;
 use Carbon\Carbon;
 use App\Appointment;
+use App\CancelledAppointment;
 use Illuminate\Http\Request;
 use App\Interfaces\ScheduleServiceInterface;
 use Validator;
@@ -27,6 +28,11 @@ class AppointmentController extends Controller
             ->paginate(10) ;
 
         return view('appointments.index',compact('pendingAppointments','confirmedAppointments','oldAppointments'));
+    }
+
+    public function show(Appointment $appointment)
+    {
+        return view('appointments.show', compact('appointment'));
     }
 
     public function create(ScheduleServiceInterface $scheduleService)
@@ -115,5 +121,33 @@ class AppointmentController extends Controller
     	$notification = "La cita se ha registrado correctamente";
 
     	return back()->with(compact('notification'));
+    }
+
+    public function showCancelForm(Appointment $appointment)
+    {
+        if ($appointment->status == 'Confirmada')
+            return view('appointments.cancel', compact('appointment'));
+
+        return redirect('/appointments');
+    }
+
+    public function postCancel(Appointment $appointment, Request $request)
+    {
+        if($request->has('justification')) {
+            $cancellation = new CancelledAppointment();
+            $cancellation->justification = $request->input('justification');
+            $cancellation->cancelled_by = auth()->id();
+
+            // $cancellation->appointment_id = ;
+            // $cancellation->save();
+            $appointment->cancellation()->save($cancellation);
+        }
+
+        $appointment->status = 'Cancelada';
+        $appointment->save();
+
+        $notification = "La cita se ha cancelado correctamente";
+
+        return redirect('/appointments')->with(compact('notification'));
     }
 }

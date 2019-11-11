@@ -38,11 +38,9 @@
           {{ $appointment->status }}
         </td> 
         <td>              
-          <form action="{{ url('/appointments/'.$appointment->id) }}" method="POST">
-            @csrf
-            @method('DELETE')               
-            <button type="submit" class="btn btn-sm btn-danger">Cancelar cita</button>
-          </form>              
+          <a class="btn btn-sm btn-danger" href="{{ url('/appointments/'.$appointment->id.'/cancel') }}" title="Cancelar cita">
+            Cancelar
+          </a>              
         </td>
       </tr>    
       @endforeach      

@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
@@ -41,10 +42,20 @@ Route::middleware(['auth','doctor'])->namespace('Doctor')->group(function(){
 	Route::post('/schedule','ScheduleController@store');
 });
 
-Route::middleware('auth')->group(function(){
-	Route::get('/appointments','AppointmentController@index');
+Route::middleware('auth')->group(function(){	
 	Route::get('/appointments/create','AppointmentController@create');
 	Route::post('/appointments','AppointmentController@store');
+
+	/*
+	 * appointment -> Verificar
+		-> qué variables pasar a la vista
+		-> 1 único blade (condiciones)
+	*/
+	Route::get('/appointments','AppointmentController@index');
+	Route::get('/appointments/{appointment}','AppointmentController@show');
+	Route::get('/appointments/{appointment}/cancel','AppointmentController@showCancelForm');
+	Route::post('/appointments/{appointment}/cancel','AppointmentController@postCancel');
+
 
 	// JSON
 	Route::get('/specialties/{specialty}/doctors','Api\SpecialtyController@doctors');

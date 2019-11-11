@@ -36,6 +36,13 @@ class Appointment extends Model
     	return $this->belongsTo(User::class);
     }
 
+    // Appointment hasOne 1 - 1/0 belongsTo CancelledAppointment
+    // $appointment->cancellation->justification
+    public function cancellation()
+    {
+        return $this->hasOne(CancelledAppointment::class);
+    }
+
     // accesor
     // $appointment->scheduled_time_12
     public function getScheduledTime12Attribute()
