@@ -1,0 +1,39 @@
+// Reservada, Confirmada, Atendida, Cancelada
+
+Tras Registrar una cita (Reservada)
+* Notificación al médico -> Confirmar/Cancelar (Móvil)
+* Administrador: Confirmar 1 cita (Web)
+* Paciente puede Cancelar -> No se va a enviar ninguna notificación.
+
+Caso particular (Excepción):
+* Informar al médico que no puede Confirmar la cita, porque el paciente la ha cancelado.
+Re: Registrar y cancelar, por más de 3 veces en una semana
+
+Confirmada:
+* Paciente puede Cancelar
+-> Preguntará el motivo, segurir que se comunique por teléfono
+-> Notificación al médico (si la fecha programada se encuentra en los próximos 5 días)
+
+Al confirmar o cancelar:
+* Notificación al paciente
+
+¿Quién canceló y cuándo? -> 2 columnas
+¿Por qué se canceló? -> 1 column
+
+Marcar como Atendida:
+* Lo puede hacer un Médico o administrador
+-> Requisito: No marcar antes de la hora
+
+--- 
+
+Paciente: Lista de cistas
+* Las citas que ha reservado y el estado de cada una
+* Btn cancelar.
+
+Médico: Lista de citas
+* Las citas que han reservado sus pacientes y opción para Confirmar/Cancelar
+* Sus próximas citas confirmadas
+
+Administrador: Lista de citas
+* Las citas reservadas recientemente y opc para Confirmar/Cancelar
+* Próximas citas que deben ser atentidas (Confirmada).

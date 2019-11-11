@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -22,16 +23,15 @@ class User extends Authenticatable
 
     public function specialties()
     {
-        return $this->belongToMany(Specialty::class);
+        return $this->belongsToMany(Specialty::class)->withTimestamps();
     }
-
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'pivot'
     ];
 
     public function scopePatients($query)

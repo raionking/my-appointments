@@ -22,47 +22,95 @@
           @endforeach
         </div>
       @endif
-      <form action="{{ url('patients') }}" method="POST">       
-        @csrf 
+      <form action="{{ url('appointments') }}" method="POST">
+        @csrf
         <div class="form-group">
-          <label for="name">Especialidad</label>
-          <select name="" id="" class="form-control">
-            @foreach($specialties as $specialty)
-              <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="email">Médico</label>
-          <select name="" id="" class="form-control"></select>
-        </div>
+          <label for="description">Descripción</label>
+          <input type="text" name="description" id="description" value="{{ old('description') }}" class="form-control" placeholder="Describe brevemente la consulta" required="">
+        </div>       
+        <div class="form-row" style="padding-bottom: 20px;">
+          <div class="col">
+            <label for="name">Especialidad</label>
+            <select name="specialty_id" id="specialty" class="form-control" required>
+                <option value="">Seleccionar especialidad</option>
+              @foreach($specialties as $specialty)
+                <option value="{{ $specialty->id }}" @if(old('specialty_id') == $specialty->id) selected @endif>{{ $specialty->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col">
+            <label for="email">Médico</label>            
+            <select name="doctor_id" id="doctor" class="form-control" required>
+              @foreach ($doctors as $doctor)
+                <option value="{{ $doctor->id }}" @if(old('doctor_id') == $doctor->id) selected @endif>{{ $doctor->name }}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>        
         <div class="form-group">
           <label for="dni">Fecha</label>
           <div class="input-group input-group-alternative">
               <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
               </div>
-              <input class="form-control datepicker" placeholder="Select date" type="text" value="06/20/2019">
+              <input class="form-control datepicker" placeholder="Select date"
+                     id="scheduled_date"
+                     name="scheduled_date"
+                     type="text" 
+                     value="{{ old('schedule_date',date('Y-m-d')) }}"
+                     data-date-format="yyyy-mm-dd"
+                     data-date-start-date="{{ date('Y-m-d') }}"
+                     data-date-end-date="+30d" required="">
           </div>
         </div>
         <div class="form-group">
           <label for="address">Hora de atención</label>
-          <input type="text" name="address" class="form-control" value="{{ old('address') }}">
+          <div id="hours">
+            @if($intervals)
+              @foreach($intervals['morning'] as $key => $interval)
+                <div class="custom-control custom-radio mb-3">
+                  <input name="scheduled_time" class="custom-control-input" id="intervalMorning{{ $key }}" type="radio" value="{{ $interval['start'] }}" required="">
+                  <label class="custom-control-label" for="intervalMorning{{ $key }}">{{ $interval['start'] }} - {{ $interval['end'] }}</label>
+                </div>
+              @endforeach
+              @foreach($intervals['afternoon'] as $key => $interval)
+                <div class="custom-control custom-radio mb-3">
+                  <input name="scheduled_time" class="custom-control-input" id="intervalAfternoon{{ $key }}" type="radio" value="{{ $interval['start'] }}" required="">
+                  <label class="custom-control-label" for="intervalAfternoon{{ $key }}">{{ $interval['start'] }} - {{ $interval['end'] }}</label>
+                </div>
+              @endforeach
+            @else
+               <div class="alert alert-info" role="alert">
+                  Seleccione un médico y una fecha, para ver sus horas disponbiles.
+              </div>
+            @endif           
+          </div>
         </div>
         <div class="form-group">
-          <label for="phone">Teléfono</label>
-          <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
-        </div>
-        <div class="form-group">
-          <label for="password">Contreña</label>
-          <input type="text" name="password" class="form-control" value="{{ str_random(6) }}">
-        </div>
+          <label for="type">Tipo de consulta</label>
+          <div class="custom-control custom-radio mb-3">
+            <input name="type" class="custom-control-input" id="type1" type="radio"
+            @if(old('type','Consulta') == 'Consulta') checked="" @endif value="Consulta">
+            <label class="custom-control-label" for="type1">Consulta</label>
+          </div>
+          <div class="custom-control custom-radio mb-3">
+            <input name="type" class="custom-control-input" id="type2" type="radio"
+            @if(old('type') == 'Examen') checked="" @endif value="Examen">
+            <label class="custom-control-label" for="type2">Examen</label>
+          </div>
+          <div class="custom-control custom-radio mb-3">
+            <input name="type" class="custom-control-input" id="type3" type="radio"
+            @if(old('type') == 'Operación') checked="" @endif value="Operación">
+            <label class="custom-control-label" for="type3">Operación</label>
+          </div>
+        </div>       
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
     </div>
-</div>        
+</div>
 @endsection
 
 @section('scripts')
   <script src="{{ asset('/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }} "></script>
+  <script src="{{ asset('js/appointments/create.js') }}"></script>
 @endsection

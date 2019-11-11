@@ -16,9 +16,11 @@ class CreateSpecialtyUserTable extends Migration
         Schema::create('specialty_user', function (Blueprint $table) {
             $table->increments('id');
 
+            // doctor
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
+            // specialty
             $table->unsignedInteger('specialty_id');
             $table->foreign('specialty_id')->references('id')->on('specialties');
 
