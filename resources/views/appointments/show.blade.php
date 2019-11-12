@@ -12,6 +12,7 @@
       </div>
     </div>
     <div class="card-body">
+      <h3>Detalle de la cita</h3>      
       <div class="table-responsive">
         <!-- Projects table -->
         <table class="table align-items-center table-flush">
@@ -39,8 +40,13 @@
               </td> 
             </tr>
             <tr>
-              <th>Médico</td>
-              <td>{{ $appointment->doctor->name }}</td> 
+              @if($role == 'patient')
+                <th>Médico</td>
+                <td>{{ $appointment->doctor->name }}</td> 
+              @elseif($role == 'doctor')
+                <th>Paciente</td>
+                <td>{{ $appointment->patient->name }}</td> 
+              @endif
             </tr>
             <tr>
               <th>Tipo de cita</td>
@@ -62,9 +68,15 @@
           <p>Acerca de la cancelación</p>
           <ul>
             @if($appointment->cancellation)                   
-              <li>Motivo de la cancelación: {{ $appointment->cancellation->justification }}</li> 
-              <li>Fecha de la cancelación: {{ $appointment->cancellation->created_at }}</li> 
-              <li>¿Quién canceló la cita?: {{ $appointment->cancellation->cancelled_by->name }}</li>               
+              <li><strong>Motivo de la cancelación:</strong> {{ $appointment->cancellation->justification }}</li> 
+              <li><strong>Fecha de la cancelación:</strong> {{ $appointment->cancellation->created_at }}</li>               
+              <li><strong>¿Quién canceló la cita?:</strong> 
+                @if(auth()->id() == $appointment->cancellation->cancelled_by_id)
+                  Tú
+                @else
+                  {{ $appointment->cancellation->cancelled_by->name }}
+                @endif
+              </li>               
             @else              
               <li>Observación: Esta cita fue cancelada antes de su confirmación</li>              
             @endif
