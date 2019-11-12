@@ -43,7 +43,12 @@
         <td>
           {{ $appointment->status }}
         </td> 
-        <td>              
+        <td> 
+          @if($role == 'admin')
+          <a class="btn btn-sm btn-primary" href="{{ url('/appointments/'.$appointment->id) }}" title="Ver cita">
+            Ver
+          </a>
+          @endif
           <a class="btn btn-sm btn-danger" href="{{ url('/appointments/'.$appointment->id.'/cancel') }}" title="Cancelar cita">
             Cancelar
           </a>              

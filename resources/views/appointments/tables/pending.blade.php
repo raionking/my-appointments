@@ -44,7 +44,12 @@
           {{ $appointment->status }}
         </td> 
         <td>
-          @if($role == 'doctor')
+           @if($role == 'admin')
+          <a class="btn btn-sm btn-primary" href="{{ url('/appointments/'.$appointment->id) }}" title="Ver cita">
+            Ver
+          </a>
+          @endif
+          @if($role == 'doctor' || $role == 'admin')
           <form action="{{ url('/appointments/'.$appointment->id.'/confirm') }}" method="POST" class="d-inline-block">
             @csrf
 
