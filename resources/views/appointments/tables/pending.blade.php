@@ -50,21 +50,25 @@
           </a>
           @endif
           @if($role == 'doctor' || $role == 'admin')
-          <form action="{{ url('/appointments/'.$appointment->id.'/confirm') }}" method="POST" class="d-inline-block">
-            @csrf
+            <form action="{{ url('/appointments/'.$appointment->id.'/confirm') }}" method="POST" class="d-inline-block">
+              @csrf
 
-            <button type="submit" class="btn btn-sm btn-success" data-toggle="tooltip" title="Confirmar cita">
-              <i class="ni ni-check-bold"></i>
-            </button>
-          </form>
-          @endif
-          <form action="{{ url('/appointments/'.$appointment->id.'/cancel') }}" method="POST" class="d-inline-block">
-            @csrf                        
+              <button type="submit" class="btn btn-sm btn-success" data-toggle="tooltip" title="Confirmar cita">
+                <i class="ni ni-check-bold"></i>
+              </button>
+            </form>
+            <a class="btn btn-sm btn-danger" href="{{ url('/appointments/'.$appointment->id.'/cancel') }}" title="Cancelar cita">
+              Cancelar
+            </a>  
+          @else
+            <form action="{{ url('/appointments/'.$appointment->id.'/cancel') }}" method="POST" class="d-inline-block">
+              @csrf                        
 
-            <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Cancelar cita">
-              <i class="ni ni-fat-delete"></i>
-            </button>
-          </form>              
+              <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Cancelar cita">
+                <i class="ni ni-fat-delete"></i>
+              </button>
+            </form> 
+          @endif                      
         </td>
       </tr>    
       @endforeach      

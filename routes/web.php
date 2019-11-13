@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function(){
 	Route::get('/appointments/{appointment}/cancel','AppointmentController@showCancelForm');
 	Route::post('/appointments/{appointment}/cancel','AppointmentController@postCancel');
 
+	// confirmar cita
+	Route::post('/appointments/{appointment}/confirm','AppointmentController@postConfirm');
+
 
 	// JSON
 	Route::get('/specialties/{specialty}/doctors','Api\SpecialtyController@doctors');
