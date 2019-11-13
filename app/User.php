@@ -43,4 +43,15 @@ class User extends Authenticatable
     {
         return $query->where('role','doctor');
     }
+
+    // $user->asPatientAppointments  ->requestedAppointments
+    public function asPatientAppointments()
+    {
+        return $this->hasMany(Appointment::class,'patient_id');
+    }
+    // $user->asDoctorAppointments   ->attendedAppointments
+    public function asDoctorAppointments()
+    {
+        return $this->hasMany(Appointment::class,'doctor_id');
+    }
 }
