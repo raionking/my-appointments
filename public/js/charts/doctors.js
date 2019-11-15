@@ -32,14 +32,40 @@ const chart = Highcharts.chart('container', {
     series: []
 });
 
-function fetchData()
-{
+let $start, $end;
+
+function fetchData() {
+    
+    const startDate = $start.val();
+    const endDate = $end.val();
+
+
     // Fetch API
-    fetch('/charts/doctor/column/data')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(myJson) {
-        console.log(myJson);
+    const url = `/charts/doctor/column/data?start=${startDate}&end=${endDate}`;
+    fetch(url)
+      .then(response => response.json())
+      .then( data => {
+       // console.log(data);
+
+        chart.xAxis[0].setCategories(data.categories);
+        
+        if(chart.series.length > 0 ) {
+            chart.series[1].remove();
+            chart.series[0].remove();
+        }
+
+        chart.addSeries(data.series[0]); // Atendidas
+        chart.addSeries(data.series[1]); // Canceladas
       });
 }
+
+
+$(function() {
+    $start = $('#startDate');
+    $end = $('#endDate');
+    
+    fetchData();    
+
+    $start.change(fetchData);
+    $end.change(fetchData);
+});
