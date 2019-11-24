@@ -8,7 +8,7 @@ Con dependencias
 Retrofit
 - URL base
 - Rutas
-- Parámetros
+- Parámetros (@Query, @Header)
 - Callback
 - GsonConverter -> JSON a Objetos
 
