@@ -44,7 +44,7 @@
               </div>
                <div class="form-group">
                 <label for="body">Mensaje</label>
-                <textarea type="text" name="body" id="body" class="form-control" rows="2" required=""></textarea>
+                <textarea name="body" id="body" class="form-control" rows="2" required=""></textarea>
               </div>
               <button class="btn btn-primary">Enviar notificación</button>
             </form>          
