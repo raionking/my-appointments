@@ -160,9 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         //Mi servicio de horarios
-        App\Providers\ScheduleServiceProvider::class,
-
-        Kawankoding\Fcm\FcmServiceProvider::class,
+        App\Providers\ScheduleServiceProvider::class,       
 
     ],
 
@@ -211,8 +209,7 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
-        'Fcm' => Kawankoding\Fcm\FcmFacade::class,
+        'View' => Illuminate\Support\Facades\View::class,     
 
     ],
 
