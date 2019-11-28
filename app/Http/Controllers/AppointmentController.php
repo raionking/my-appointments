@@ -119,37 +119,29 @@ class AppointmentController extends Controller
 
     public function showCancelForm(Appointment $appointment)
     {
-        $role = auth()->user()->role;
-
-        if($role == 'admin' || $role == 'doctor')
-            return view('appointments.cancel', compact('appointment','role'));
-
-        if ($appointment->status == 'Confirmada')         
-            return view('appointments.cancel', compact('appointment','role'));
-
+        if ($appointment->status == 'Confirmada') {
+            $role = auth()->user()->role;
+            return view('appointments.cancel', compact('appointment', 'role'));
+        }
         return redirect('/appointments');
     }
 
     public function postCancel(Appointment $appointment, Request $request)
     {
-        if($request->has('justification')) {
+        if ($request->has('justification')) {
             $cancellation = new CancelledAppointment();
             $cancellation->justification = $request->input('justification');
             $cancellation->cancelled_by = auth()->id();
-
             // $cancellation->appointment_id = ;
             // $cancellation->save();
             $appointment->cancellation()->save($cancellation);
         }
-
+        
         $appointment->status = 'Cancelada';
-        $saved = $appointment->save();
-
+        $saved = $appointment->save(); // update
         if ($saved)
-            $appointment->patient->sendFCM('Su cita se ha sido cancelada');
-
-        $notification = "La cita se ha cancelado correctamente";
-
+            $appointment->patient->sendFCM('Su cita ha sido cancelada.');
+        $notification = 'La cita se ha cancelado correctamente.';
         return redirect('/appointments')->with(compact('notification'));
     }
 
