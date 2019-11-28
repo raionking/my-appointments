@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Specialty;
 use Carbon\Carbon;
 use App\Appointment;
@@ -142,7 +143,10 @@ class AppointmentController extends Controller
         }
 
         $appointment->status = 'Cancelada';
-        $appointment->save();
+        $saved = $appointment->save();
+
+        if ($saved)
+            $appointment->patient->sendFCM('Su cita se ha sido cancelada');
 
         $notification = "La cita se ha cancelado correctamente";
 
@@ -152,7 +156,10 @@ class AppointmentController extends Controller
      public function postConfirm(Appointment $appointment, Request $request)
     {
         $appointment->status = 'Confirmada';
-        $appointment->save();
+        $saved = $appointment->save();
+
+        if ($saved)       
+            $appointment->patient->sendFCM('Su cita se ha confirmado');
 
         $notification = "La cita se ha confirmada correctamente";
 

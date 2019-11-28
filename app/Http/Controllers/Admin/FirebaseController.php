@@ -16,10 +16,8 @@ class FirebaseController extends Controller
     	//dd($recipients);
 
     	fcm()
-		    ->to($recipients) // $recipients must an array
-		    ->priority('high')
-		    ->timeToLive(0)
-		    ->data([
+		    ->to($recipients) // $recipients must an array		    		    
+		    ->notification([
 		        'title' => $request->input('title'),
 		        'body' => $request->input('body'),
 		    ])
