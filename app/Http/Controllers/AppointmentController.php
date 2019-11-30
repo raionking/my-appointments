@@ -141,6 +141,7 @@ class AppointmentController extends Controller
         $saved = $appointment->save(); // update
         if ($saved)
             $appointment->patient->sendFCM('Su cita ha sido cancelada.');
+        
         $notification = 'La cita se ha cancelado correctamente.';
         return redirect('/appointments')->with(compact('notification'));
     }
