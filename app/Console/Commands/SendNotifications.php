@@ -65,20 +65,17 @@ class SendNotifications extends Command
     private function getAppointments24Hours($now)
     {
         return Appointment::where('status','Confirmada')
-            ->where('scheduled_date',$now->addDay()->toDateString())
-            ->where('scheduled_time','=',$now->copy()->toTimeString())
-            //->where('scheduled_time','>=',$now->copy()->subMinutes(2)->toTimeString())
-            //->where('scheduled_time','<',$now->copy()->addMinutes(1)->toTimeString())
+            ->where('scheduled_date',$now->addDay()->toDateString())            
+            ->where('scheduled_time','>=',$now->copy()->subMinutes(1)->toTimeString())
+            ->where('scheduled_time','<',$now->copy()->addMinutes(1)->toTimeString())
             ->get(['id','scheduled_date','scheduled_time','patient_id']);
     }
 
     private function getAppointmentsNextHour($now)
     {
-        return Appointment::where('status','Confirmada')
-            ->where('scheduled_date',$now->addHour()->toDateString())
-            ->where('scheduled_time','=',$now->copy()->toTimeString())
-            //->where('scheduled_time','>=',$now->copy()->subMinutes(2)->toTimeString())
-            //->where('scheduled_time','<',$now->copy()->addMinutes(1)->toTimeString())
+        return Appointment::where('status','Confirmada')            
+            ->where('scheduled_time','>=',$now->copy()->subMinutes(1)->toTimeString())
+            ->where('scheduled_time','<',$now->copy()->addMinutes(1)->toTimeString())
             ->get(['id','scheduled_date','scheduled_time','patient_id']);
     }
 }
