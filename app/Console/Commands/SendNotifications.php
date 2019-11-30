@@ -66,8 +66,8 @@ class SendNotifications extends Command
     {
         return Appointment::where('status','Confirmada')
             ->where('scheduled_date',$now->addDay()->toDateString())
-            ->where('scheduled_time','>=',$now->copy()->subMinutes(3)->toTimeString())
-            ->where('scheduled_time','<',$now->copy()->addMinutes(2)->toTimeString())
+            ->where('scheduled_time','>=',$now->copy()->subMinutes(0)->toTimeString())
+            ->where('scheduled_time','<',$now->copy()->addMinutes(0)->toTimeString())
             ->get(['id','scheduled_date','scheduled_time','patient_id']);
     }
 
@@ -75,8 +75,8 @@ class SendNotifications extends Command
     {
         return Appointment::where('status','Confirmada')
             ->where('scheduled_date',$now->addHour()->toDateString())
-            ->where('scheduled_time','>=',$now->copy()->subMinutes(3)->toTimeString())
-            ->where('scheduled_time','<',$now->copy()->addMinutes(2)->toTimeString())
+            ->where('scheduled_time','>=',$now->copy()->subMinutes(0)->toTimeString())
+            ->where('scheduled_time','<',$now->copy()->addMinutes(0)->toTimeString())
             ->get(['id','scheduled_date','scheduled_time','patient_id']);
     }
 }
