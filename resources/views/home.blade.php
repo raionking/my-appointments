@@ -72,3 +72,10 @@
     @endif
 </div>    
 @endsection
+
+@section('scripts')
+  <script type="text/javascript">
+    const appointmentsByDay = @json($appointmentsByDay)
+  </script>
+  <script type="text/javascript" src="{{ asset('js/charts/home.js')}}"></script>
+@endsection
