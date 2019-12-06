@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
+use JwtAuth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->save();
-        
+
         JwtAuth::clearCache($user);
     }
 
