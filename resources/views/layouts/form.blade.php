@@ -2,6 +2,15 @@
 <html>
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0XPSLVT73"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-P0XPSLVT73');
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
@@ -47,7 +56,7 @@
             </div>
           </div>
           <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">            
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                 <i class="ni ni-circle-08"></i>
@@ -59,7 +68,7 @@
                 <i class="ni ni-key-25"></i>
                 <span class="nav-link-inner--text">Login</span>
               </a>
-            </li>            
+            </li>
           </ul>
         </div>
       </div>
@@ -105,7 +114,7 @@
             </li>
             <li class="nav-item">
               <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>            
+            </li>
           </ul>
         </div>
       </div>

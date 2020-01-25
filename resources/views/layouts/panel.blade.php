@@ -2,6 +2,15 @@
 <html>
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P0XPSLVT73"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-P0XPSLVT73');
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
@@ -73,7 +82,7 @@
               </button>
             </div>
           </div>
-        </div>       
+        </div>
         @include('includes.panel.menu')
       </div>
     </div>
@@ -117,13 +126,13 @@
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-4 pt-md-7">
       <div class="container-fluid">
-        <div class="header-body">          
+        <div class="header-body">
         </div>
       </div>
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--7">
-      @yield('content')      
+      @yield('content')
       <!-- Footer -->
       @include('includes.panel.footer')
     </div>
@@ -134,7 +143,7 @@
   <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Optional JS -->
   <script src="{{ asset('vendor/chart.js/dist/Chart.min.js') }}"></script>
-  <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>  
+  <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
   @yield('scripts')
   <!-- Argon JS -->
   <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
