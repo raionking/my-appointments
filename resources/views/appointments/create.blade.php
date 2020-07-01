@@ -60,7 +60,7 @@
                      value="{{ old('schedule_date',date('Y-m-d')) }}"
                      data-date-format="yyyy-mm-dd"
                      data-date-start-date="{{ date('Y-m-d') }}"
-                     data-date-end-date="+30d" required="">
+                     data-date-end-date="+8d" required="">
           </div>
         </div>
         <div class="form-group">
